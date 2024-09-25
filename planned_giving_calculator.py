@@ -72,7 +72,7 @@ def calculate_gift_annuity(donation_amount, donor_age, tax_rate, selected_pillar
     display_impact_story(selected_pillar)
 
 def calculate_remainder_trust(donation_amount, donor_age, tax_rate, selected_pillar):
-    annual_payout_rate = 0.05  # Assuming a 5% payout rate
+    annual_payout_rate = 0.04  # Changed to 4% payout rate
     annual_income = donation_amount * annual_payout_rate
     tax_savings = donation_amount * (tax_rate / 100)
     st.subheader("Charitable Remainder Trust Results")
@@ -103,7 +103,6 @@ def display_impact_story(selected_pillar):
     st.header(f"Impact Story in {selected_pillar}")
     # Embed the video in the impact stories section
     st.video("https://www.youtube.com/watch?v=x5bKXFXBj_4")
-
     stories = {
         "Arts & Culture": """
         **Bringing Art to Life in Appalachian Ohio**
@@ -157,12 +156,12 @@ def projected_community_impact(donation_amount):
     st.header("Projected Community Impact with Compounding")
 
     st.write("""
-    Assuming 100% of your gift goes into an endowment, an annual return of 8%, and an annual payout of 5% to community projects, here's how your donation could impact the community over time:
+    Assuming 100% of your gift goes into an endowment, an annual return of 8%, and an annual payout of 4% to community projects, here's how your donation could impact the community over time:
     """)
 
     years_list = [10, 25, 100]
     annual_return_rate = 0.08  # 8% annual return
-    annual_payout_rate = 0.05  # 5% annual payout to community
+    annual_payout_rate = 0.04  # Changed to 4% annual payout to community
 
     data = []
     for years in years_list:
