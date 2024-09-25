@@ -30,7 +30,22 @@ def main():
         "Donor-Advised Fund"
     ])
 
+    # Areas of Impact
     st.header("Areas of Impact")
+
+    # Pillar Descriptions
+    st.write("""
+    **Arts & Culture**: Enhancing Appalachian Ohio's rich artistic and cultural heritage through support for local artists, events, and educational programs.
+
+    **Community & Economic Development**: Promoting sustainable economic growth and improving quality of life by supporting community initiatives and infrastructure projects.
+
+    **Education**: Investing in educational opportunities to empower individuals and strengthen communities through lifelong learning.
+
+    **Environmental Stewardship**: Protecting and preserving the natural environment of Appalachian Ohio through conservation efforts and sustainable practices.
+
+    **Health & Human Services**: Improving the health and well-being of residents by supporting access to healthcare, social services, and programs addressing critical needs.
+    """)
+
     fao_pillars = [
         "Arts & Culture",
         "Community & Economic Development",
@@ -39,18 +54,6 @@ def main():
         "Health & Human Services"
     ]
     selected_pillar = st.selectbox("Select an FAO Pillar to Support", fao_pillars)
-
-    # Pillar Descriptions
-    pillar_descriptions = {
-        "Arts & Culture": "Enhancing Appalachian Ohio's rich artistic and cultural heritage through support for local artists, events, and educational programs.",
-        "Community & Economic Development": "Promoting sustainable economic growth and improving quality of life by supporting community initiatives and infrastructure projects.",
-        "Education": "Investing in educational opportunities to empower individuals and strengthen communities through lifelong learning.",
-        "Environmental Stewardship": "Protecting and preserving the natural environment of Appalachian Ohio through conservation efforts and sustainable practices.",
-        "Health & Human Services": "Improving the health and well-being of residents by supporting access to healthcare, social services, and programs addressing critical needs."
-    }
-
-    # Display the description of the selected pillar
-    st.write(f"**Pillar Description:** {pillar_descriptions[selected_pillar]}")
 
     # Calculation and Output
     if st.button("Calculate Benefits"):
