@@ -51,7 +51,7 @@ def main():
         elif option == "Donor-Advised Fund":
             calculate_donor_advised_fund(donation_amount, tax_rate, selected_pillar)
 
-        # Add the updated projected community impact section with compounding
+        # Add the projected community impact section with compounding
         projected_community_impact(donation_amount)
 
 def calculate_bequest(donation_amount, tax_rate, selected_pillar):
@@ -101,6 +101,9 @@ def get_annuity_rate(age):
 
 def display_impact_story(selected_pillar):
     st.header(f"Impact Story in {selected_pillar}")
+    # Embed the video in the impact stories section
+    st.video("https://www.youtube.com/watch?v=x5bKXFXBj_4")
+
     stories = {
         "Arts & Culture": """
         **Bringing Art to Life in Appalachian Ohio**
