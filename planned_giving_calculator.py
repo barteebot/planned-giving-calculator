@@ -1,12 +1,11 @@
 # planned_giving_calculator.py
 
 import streamlit as st
-import random
 
 def main():
     st.title("Planned Giving Calculator")
 
-    # Embed the introductory YouTube video at the top
+    # Embed the YouTube video at the top
     st.video("https://youtu.be/Wv35EUxq2Nc")
 
     st.write("""
@@ -53,7 +52,7 @@ def calculate_bequest(donation_amount, tax_rate, selected_pillar):
     st.subheader("Charitable Bequest Results")
     st.write(f"Estimated Estate Tax Savings: **${tax_savings:,.2f}**")
     st.write("Your bequest will leave a lasting legacy without affecting your current financial situation.")
-    display_impact_story(selected_pillar, donation_amount)
+    display_impact_story(selected_pillar)
 
 def calculate_gift_annuity(donation_amount, donor_age, tax_rate, selected_pillar):
     annuity_rate = get_annuity_rate(donor_age)
@@ -63,7 +62,7 @@ def calculate_gift_annuity(donation_amount, donor_age, tax_rate, selected_pillar
     st.write(f"Annual Income: **${annual_income:,.2f}**")
     st.write(f"Immediate Tax Deduction: **${tax_savings:,.2f}**")
     st.write("Receive guaranteed income for life while supporting a worthy cause.")
-    display_impact_story(selected_pillar, donation_amount)
+    display_impact_story(selected_pillar)
 
 def calculate_remainder_trust(donation_amount, donor_age, tax_rate, selected_pillar):
     annual_payout_rate = 0.05  # Assuming a 5% payout rate
@@ -73,14 +72,14 @@ def calculate_remainder_trust(donation_amount, donor_age, tax_rate, selected_pil
     st.write(f"Annual Income: **${annual_income:,.2f}**")
     st.write(f"Immediate Tax Deduction: **${tax_savings:,.2f}**")
     st.write("Benefit from income payments and reduce your taxable estate.")
-    display_impact_story(selected_pillar, donation_amount)
+    display_impact_story(selected_pillar)
 
 def calculate_donor_advised_fund(donation_amount, tax_rate, selected_pillar):
     tax_savings = donation_amount * (tax_rate / 100)
     st.subheader("Donor-Advised Fund Results")
     st.write(f"Immediate Tax Deduction: **${tax_savings:,.2f}**")
     st.write("Recommend grants to charities over time while receiving an immediate tax benefit.")
-    display_impact_story(selected_pillar, donation_amount)
+    display_impact_story(selected_pillar)
 
 def get_annuity_rate(age):
     # Simplified annuity rate table based on age
@@ -93,55 +92,61 @@ def get_annuity_rate(age):
     else:
         return 0.055
 
-def display_impact_story(selected_pillar, donation_amount):
+def display_impact_story(selected_pillar):
     st.header(f"Impact Story in {selected_pillar}")
+    stories = {
+        "Arts & Culture": """
+        **Bringing Art to Life in Appalachian Ohio**
 
-    # Determine the donation amount range
-    if donation_amount <= 10000:
-        amount_range = "$0 - $10,000"
-    elif 10000 < donation_amount <= 25000:
-        amount_range = "$10,001 - $25,000"
-    elif 25000 < donation_amount <= 50000:
-        amount_range = "$25,001 - $50,000"
-    elif 50000 < donation_amount <= 100000:
-        amount_range = "$50,001 - $100,000"
-    else:
-        amount_range = "$100,001 and above"
+        *When Emily decided to support the Arts & Culture pillar, she couldn't have imagined the ripple effect her generosity would create. Her donation funded a community theater program that brought together children from diverse backgrounds. Over the course of the program, these young individuals not only discovered their hidden talents but also learned the value of teamwork and self-expression.*
 
-    # Placeholder list of video URLs (since we can't access YouTube directly)
-    # Replace these URLs with actual video URLs from the FAO YouTube channel
-    video_urls = [
-        "https://youtu.be/dQw4w9WgXcQ",
-        "https://youtu.be/3GwjfUFyY6M",
-        "https://youtu.be/lY2yjAdbvdQ",
-        "https://youtu.be/2Vv-BfVoq4g",
-        "https://youtu.be/9bZkp7q19f0"
-    ]
+        *The community theater became a beacon of creativity in the region, hosting performances that attracted audiences from neighboring towns. Parents and teachers noticed a positive change in the children's confidence and academic performance. Emily's contribution didn't just support an arts program; it ignited a cultural renaissance that enriched the entire community.*
 
-    # Select a random video URL
-    random_video = random.choice(video_urls)
-    st.video(random_video)
+        *Inspired by the success, local businesses and artists collaborated to establish annual art festivals and workshops. Emily's initial act of kindness had blossomed into a sustained movement, proving that the arts truly have the power to transform lives.*
 
-    # Impact stories dictionary
-    impact_stories = {
-        ("Arts & Culture", "$0 - $10,000"): """
-        **Nurturing Young Artists**
-
-        *With a generous gift in this range, we were able to supply art materials to local schools. Students like Lily discovered their passion for painting, leading to local exhibitions that brought the community together.*
         """,
-        ("Arts & Culture", "$10,001 - $25,000"): """
-        **Community Mural Projects**
+        "Community & Economic Development": """
+        **Revitalizing Main Street**
 
-        *Your contribution can fund community mural projects, transforming public spaces into vibrant works of art. Residents take pride in their neighborhoods, fostering unity and cultural appreciation.*
+        *John had always felt a deep connection to his hometown, but he noticed that the once-thriving Main Street had fallen into decline. Determined to make a difference, he directed his donation to the Community & Economic Development pillar. His funds were used to renovate historic buildings, creating attractive spaces for new businesses.*
+
+        *The revitalization project breathed new life into the local economy. Small businesses began to flourish, offering unique products and services that drew visitors from afar. Job opportunities increased, reducing unemployment and fostering a sense of pride among residents.*
+
+        *The transformation of Main Street became a model for neighboring communities. John's dedication not only rejuvenated a town but also set in motion a wave of economic growth throughout Appalachian Ohio. His legacy is seen in the bustling streets and the smiles of entrepreneurs who found their start because of his generosity.*
+
         """,
-        # ... (Continue this pattern for all combinations)
+        "Education": """
+        **Opening Doors to Education**
+
+        *Education had always been close to Sarah's heart. By supporting the Education pillar, she aimed to break down barriers for students who lacked resources. Her donation established a scholarship fund for underprivileged youth, granting them access to higher education that was once beyond their reach.*
+
+        *One of the scholarship recipients, Alex, became the first in his family to attend college. His academic achievements inspired his younger siblings and peers to pursue their own educational goals. The ripple effect extended to the community, where educational attainment began to rise collectively.*
+
+        *Sarah's commitment didn't stop at scholarships. She also funded mentorship programs and educational workshops. Her holistic approach ensured that students not only had financial support but also the guidance needed to succeed. Sarah's impact is a testament to how investing in education can uplift entire communities.*
+
+        """,
+        "Environmental Stewardship": """
+        **Protecting Natural Treasures**
+
+        *Michael cherished the natural beauty of Appalachian Ohio's landscapes. His donation to the Environmental Stewardship pillar was dedicated to preserving these treasures for future generations. The funds were used to protect vital waterways and expand conservation areas.*
+
+        *Through his support, initiatives were launched to restore habitats and promote biodiversity. Educational programs taught locals about sustainable practices, fostering a community that values and actively participates in environmental preservation.*
+
+        *One notable project was the creation of a network of hiking trails that not only provided recreational opportunities but also boosted eco-tourism. Michael's passion for the environment resulted in tangible benefits for both nature and the local economy, ensuring that the region's natural beauty remains unspoiled.*
+
+        """,
+        "Health & Human Services": """
+        **Caring for Community Health**
+
+        *Lisa recognized the challenges faced by remote communities in accessing healthcare. By contributing to the Health & Human Services pillar, she enabled the launch of mobile health clinics that brought essential medical services directly to those in need.*
+
+        *These clinics provided routine check-ups, vaccinations, and health education, significantly improving the well-being of residents. The convenience of local access reduced untreated illnesses and fostered a healthier population.*
+
+        *Moreover, Lisa's support helped establish partnerships with larger healthcare providers, expanding the range of services available. Her commitment not only addressed immediate health concerns but also laid the groundwork for sustainable healthcare solutions in Appalachian Ohio.*
+
+        """
     }
-
-    # Fetch the appropriate story
-    story_key = (selected_pillar, amount_range)
-    story = impact_stories.get(story_key, "Impact story not available for this selection.")
-
-    st.write(story)
+    st.write(stories[selected_pillar])
 
 if __name__ == "__main__":
     main()
