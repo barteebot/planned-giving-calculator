@@ -3,7 +3,7 @@
 import streamlit as st
 
 def main():
-    # Remove the FAO Logo
+    # Remove the FAO Logo (as per your request)
     # st.image("path_to_logo.png", use_column_width=True)
 
     # Update the main title
@@ -51,7 +51,7 @@ def main():
         elif option == "Donor-Advised Fund":
             calculate_donor_advised_fund(donation_amount, tax_rate, selected_pillar)
 
-        # Add the projected community impact section
+        # Add the corrected projected community impact section
         projected_community_impact(donation_amount)
 
 def calculate_bequest(donation_amount, tax_rate, selected_pillar):
@@ -118,24 +118,25 @@ def display_impact_story(selected_pillar):
 def projected_community_impact(donation_amount):
     st.header("Projected Community Impact")
     st.write("""
-    Assuming 100% of your gift goes to the endowment and an annual return of 5%, here's how your donation could impact the community over time:
+    Assuming 100% of your gift goes into an endowment, an annual return of 5%, and an annual payout of 5% to community projects, here's how your donation could impact the community over time:
     """)
-    # Calculate future value after 10, 25, and 100 years
-    years_list = [10, 25, 100]
-    rate_of_return = 0.05  # 5% annual return
-    st.table(calculate_impact_table(donation_amount, years_list, rate_of_return))
 
-def calculate_impact_table(donation_amount, years_list, rate_of_return):
-    import pandas as pd
+    years_list = [10, 25, 100]
+    payout_rate = 0.05  # 5% annual payout to community
+    annual_payout = donation_amount * payout_rate
+
+    # Calculate total dollars invested into the community
     data = []
     for years in years_list:
-        future_value = donation_amount * ((1 + rate_of_return) ** years)
+        total_invested = annual_payout * years
         data.append({
             "Years": years,
-            "Projected Endowment Value": f"${future_value:,.2f}"
+            "Total Dollars Invested into Community": f"${total_invested:,.2f}",
+            "Annual Community Investment": f"${annual_payout:,.2f}",
+            "Endowment Principal Remains": f"${donation_amount:,.2f}"
         })
-    df = pd.DataFrame(data)
-    return df
+
+    st.table(data)
 
 if __name__ == "__main__":
     main()
