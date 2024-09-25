@@ -3,9 +3,12 @@
 import streamlit as st
 
 def main():
+    # Add the FAO Logo at the top
+    st.image("path_to_logo.png", use_column_width=True)
+
     st.title("Planned Giving Calculator")
 
-    # Embed the YouTube video at the top
+    # Embed the introductory YouTube video below the logo
     st.video("https://youtu.be/Wv35EUxq2Nc")
 
     st.write("""
@@ -103,7 +106,6 @@ def display_impact_story(selected_pillar):
         *The community theater became a beacon of creativity in the region, hosting performances that attracted audiences from neighboring towns. Parents and teachers noticed a positive change in the children's confidence and academic performance. Emily's contribution didn't just support an arts program; it ignited a cultural renaissance that enriched the entire community.*
 
         *Inspired by the success, local businesses and artists collaborated to establish annual art festivals and workshops. Emily's initial act of kindness had blossomed into a sustained movement, proving that the arts truly have the power to transform lives.*
-
         """,
         "Community & Economic Development": """
         **Revitalizing Main Street**
@@ -113,7 +115,6 @@ def display_impact_story(selected_pillar):
         *The revitalization project breathed new life into the local economy. Small businesses began to flourish, offering unique products and services that drew visitors from afar. Job opportunities increased, reducing unemployment and fostering a sense of pride among residents.*
 
         *The transformation of Main Street became a model for neighboring communities. John's dedication not only rejuvenated a town but also set in motion a wave of economic growth throughout Appalachian Ohio. His legacy is seen in the bustling streets and the smiles of entrepreneurs who found their start because of his generosity.*
-
         """,
         "Education": """
         **Opening Doors to Education**
@@ -123,7 +124,6 @@ def display_impact_story(selected_pillar):
         *One of the scholarship recipients, Alex, became the first in his family to attend college. His academic achievements inspired his younger siblings and peers to pursue their own educational goals. The ripple effect extended to the community, where educational attainment began to rise collectively.*
 
         *Sarah's commitment didn't stop at scholarships. She also funded mentorship programs and educational workshops. Her holistic approach ensured that students not only had financial support but also the guidance needed to succeed. Sarah's impact is a testament to how investing in education can uplift entire communities.*
-
         """,
         "Environmental Stewardship": """
         **Protecting Natural Treasures**
@@ -133,7 +133,6 @@ def display_impact_story(selected_pillar):
         *Through his support, initiatives were launched to restore habitats and promote biodiversity. Educational programs taught locals about sustainable practices, fostering a community that values and actively participates in environmental preservation.*
 
         *One notable project was the creation of a network of hiking trails that not only provided recreational opportunities but also boosted eco-tourism. Michael's passion for the environment resulted in tangible benefits for both nature and the local economy, ensuring that the region's natural beauty remains unspoiled.*
-
         """,
         "Health & Human Services": """
         **Caring for Community Health**
@@ -143,7 +142,6 @@ def display_impact_story(selected_pillar):
         *These clinics provided routine check-ups, vaccinations, and health education, significantly improving the well-being of residents. The convenience of local access reduced untreated illnesses and fostered a healthier population.*
 
         *Moreover, Lisa's support helped establish partnerships with larger healthcare providers, expanding the range of services available. Her commitment not only addressed immediate health concerns but also laid the groundwork for sustainable healthcare solutions in Appalachian Ohio.*
-
         """
     }
     st.write(stories[selected_pillar])
