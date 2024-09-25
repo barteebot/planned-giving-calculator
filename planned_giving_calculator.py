@@ -1,27 +1,25 @@
 # planned_giving_calculator.py
 
 import streamlit as st
+import matplotlib.pyplot as plt
+import pandas as pd
 
 def main():
-    # Remove the FAO Logo (as per your request)
-    # st.image("path_to_logo.png", use_column_width=True)
-
-    # Update the main title
+    # Main Title and Video
     st.title("Foundation for Appalachian Ohio's Planned Giving Calculator")
-
-    # Embed the introductory YouTube video below the title
     st.video("https://youtu.be/Wv35EUxq2Nc")
 
     st.write("""
     This calculator helps you understand the financial benefits of planned giving options with the Foundation for Appalachian Ohio.
     """)
 
-    # Input Section
+    # Donor Information Input
     st.header("Donor Information")
     donation_amount = st.number_input("Donation Amount ($)", min_value=1000, value=10000, step=1000)
     donor_age = st.number_input("Donor's Age", min_value=18, value=50, step=1)
     tax_rate = st.slider("Marginal Tax Rate (%)", min_value=0, max_value=50, value=30, step=1)
 
+    # Planned Giving Options
     st.header("Planned Giving Options")
     option = st.selectbox("Select a Planned Giving Option", [
         "Charitable Bequest",
@@ -66,7 +64,7 @@ def main():
         elif option == "Donor-Advised Fund":
             calculate_donor_advised_fund(donation_amount, tax_rate, selected_pillar)
 
-        # Add the projected community impact section with compounding
+        # Projected Community Impact with Compounding and Graph
         projected_community_impact(donation_amount)
 
 def calculate_bequest(donation_amount, tax_rate, selected_pillar):
@@ -202,38 +200,57 @@ def projected_community_impact(donation_amount):
     Assuming 100% of your gift goes into an endowment, an annual return of **8%**, and an annual payout of **4%** to community projects, here's how your donation could impact the community over time:
     """)
 
-    years_list = [10, 25, 100]
+    years_list = list(range(1, 101))  # Years from 1 to 100
     annual_return_rate = 0.08  # 8% annual return
     annual_payout_rate = 0.04  # 4% annual payout to community
 
-    data = []
-    for years in years_list:
-        endowment_balance = donation_amount
-        cumulative_community_investment = 0
+    endowment_balance = donation_amount
+    cumulative_community_investment = 0
 
-        for year in range(1, years + 1):
-            # Calculate interest earned
-            interest_earned = endowment_balance * annual_return_rate
+    community_investment_values = []
+    endowment_balance_values = []
 
-            # Update endowment balance with interest
-            endowment_balance += interest_earned
+    for year in years_list:
+        # Calculate interest earned
+        interest_earned = endowment_balance * annual_return_rate
 
-            # Calculate annual community investment
-            annual_community_investment = endowment_balance * annual_payout_rate
+        # Update endowment balance with interest
+        endowment_balance += interest_earned
 
-            # Update cumulative community investment
-            cumulative_community_investment += annual_community_investment
+        # Calculate annual community investment
+        annual_community_investment = endowment_balance * annual_payout_rate
 
-            # Deduct payout from endowment balance
-            endowment_balance -= annual_community_investment
+        # Update cumulative community investment
+        cumulative_community_investment += annual_community_investment
 
-        data.append({
-            "Years": years,
-            "Total Dollars Invested into Community": f"${cumulative_community_investment:,.2f}",
-            "Endowment Balance After Period": f"${endowment_balance:,.2f}"
-        })
+        # Deduct payout from endowment balance
+        endowment_balance -= annual_community_investment
 
-    st.table(data)
+        # Append values for graphing
+        community_investment_values.append(cumulative_community_investment)
+        endowment_balance_values.append(endowment_balance)
+
+    # Plotting the graph using Matplotlib
+    fig, ax = plt.subplots()
+    ax.plot(years_list, community_investment_values, label="Total Dollars Invested into Community", color='blue', linestyle='--')
+    ax.plot(years_list, endowment_balance_values, label="Endowment Balance", color='green')
+
+    ax.set_xlabel("Years")
+    ax.set_ylabel("Dollars")
+    ax.set_title("Projected Community Impact over 100 Years")
+    ax.legend()
+
+    st.pyplot(fig)
+
+    # Create a dataframe to display in a table
+    data = {
+        "Year": years_list,
+        "Total Dollars Invested into Community": ["${:,.2f}".format(x) for x in community_investment_values],
+        "Endowment Balance After Period": ["${:,.2f}".format(x) for x in endowment_balance_values]
+    }
+    df = pd.DataFrame(data)
+    st.write("**Sample Data (First 10 Years):**")
+    st.table(df.head(10))
 
 if __name__ == "__main__":
     main()
