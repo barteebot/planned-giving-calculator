@@ -22,24 +22,35 @@ def main():
         "Donor-Advised Fund"
     ])
 
+    st.header("Areas of Impact")
+    fao_pillars = [
+        "Arts & Culture",
+        "Community & Economic Development",
+        "Education",
+        "Environmental Stewardship",
+        "Health & Human Services"
+    ]
+    selected_pillar = st.selectbox("Select an FAO Pillar to Support", fao_pillars)
+
     # Calculation and Output
     if st.button("Calculate Benefits"):
         if option == "Charitable Bequest":
-            calculate_bequest(donation_amount, tax_rate)
+            calculate_bequest(donation_amount, tax_rate, selected_pillar)
         elif option == "Charitable Gift Annuity":
-            calculate_gift_annuity(donation_amount, donor_age, tax_rate)
+            calculate_gift_annuity(donation_amount, donor_age, tax_rate, selected_pillar)
         elif option == "Charitable Remainder Trust":
-            calculate_remainder_trust(donation_amount, donor_age, tax_rate)
+            calculate_remainder_trust(donation_amount, donor_age, tax_rate, selected_pillar)
         elif option == "Donor-Advised Fund":
-            calculate_donor_advised_fund(donation_amount, tax_rate)
+            calculate_donor_advised_fund(donation_amount, tax_rate, selected_pillar)
 
-def calculate_bequest(donation_amount, tax_rate):
+def calculate_bequest(donation_amount, tax_rate, selected_pillar):
     tax_savings = donation_amount * (tax_rate / 100)
     st.subheader("Charitable Bequest Results")
     st.write(f"Estimated Estate Tax Savings: **${tax_savings:,.2f}**")
     st.write("Your bequest will leave a lasting legacy without affecting your current financial situation.")
+    display_impact_story(selected_pillar)
 
-def calculate_gift_annuity(donation_amount, donor_age, tax_rate):
+def calculate_gift_annuity(donation_amount, donor_age, tax_rate, selected_pillar):
     annuity_rate = get_annuity_rate(donor_age)
     annual_income = donation_amount * annuity_rate
     tax_savings = donation_amount * (tax_rate / 100)
@@ -47,32 +58,12 @@ def calculate_gift_annuity(donation_amount, donor_age, tax_rate):
     st.write(f"Annual Income: **${annual_income:,.2f}**")
     st.write(f"Immediate Tax Deduction: **${tax_savings:,.2f}**")
     st.write("Receive guaranteed income for life while supporting a worthy cause.")
+    display_impact_story(selected_pillar)
 
-def calculate_remainder_trust(donation_amount, donor_age, tax_rate):
+def calculate_remainder_trust(donation_amount, donor_age, tax_rate, selected_pillar):
     annual_payout_rate = 0.05  # Assuming a 5% payout rate
     annual_income = donation_amount * annual_payout_rate
     tax_savings = donation_amount * (tax_rate / 100)
     st.subheader("Charitable Remainder Trust Results")
     st.write(f"Annual Income: **${annual_income:,.2f}**")
-    st.write(f"Immediate Tax Deduction: **${tax_savings:,.2f}**")
-    st.write("Benefit from income payments and reduce your taxable estate.")
-
-def calculate_donor_advised_fund(donation_amount, tax_rate):
-    tax_savings = donation_amount * (tax_rate / 100)
-    st.subheader("Donor-Advised Fund Results")
-    st.write(f"Immediate Tax Deduction: **${tax_savings:,.2f}**")
-    st.write("Recommend grants to charities over time while receiving an immediate tax benefit.")
-
-def get_annuity_rate(age):
-    # Simplified annuity rate table based on age
-    if age < 60:
-        return 0.04
-    elif age < 70:
-        return 0.045
-    elif age < 80:
-        return 0.05
-    else:
-        return 0.055
-
-if __name__ == "__main__":
-    main()
+    st.write(f"Immediate Tax​⬤
