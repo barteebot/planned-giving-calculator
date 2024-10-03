@@ -13,7 +13,7 @@ def main():
     st.video("https://youtu.be/Wv35EUxq2Nc")
 
     st.write("""
-    This calculator helps you understand the financial benefits of planned giving options with the Foundation for Appalachian Ohio.
+    This calculator helps you understand the financial benefits of planned giving options with the Foundation for Appalachian Ohio. This calculator should not substitute advice from a financial professional such as a financial advisor or accountant
     """)
 
     # Input Section
